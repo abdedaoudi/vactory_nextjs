@@ -36,7 +36,7 @@
     "dev": "start-storybook -p 6006",
     "dev:no-cache": "start-storybook -p 6006 --no-manager-cache",
     "build": "build-storybook",
-    "build:icons": "svg-spreact ./src/icon/icons --optimize true --tidy true > ./public/icons.svg"
+    "build:icons": "node ./scripts/export-svg  ./src/icon/icons  --optimize true --tidy true > ./public/icons.svg"
   },
   "peerDependencies": {
     "react": "*",
