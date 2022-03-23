@@ -4,9 +4,9 @@ import { Link } from "@vactory/ui/link"
 
 export const FullBackgroundSlider = (isActive) => {
 	return (
-		<div className="keen-slider__slide number-slide">
+		<div className="keen-slider__slide number-slide bg-gray-600 flex items-center justify-center text-5xl text-white font-medium h-screen max-h-screen">
 			{isActive && (
-				<div className="flex h-full flex-col justify-center items-center mx-auto max-w-lg">
+				<div className="flex h-full flex-col justify-center items-center mx-auto max-w-lg space-x-3">
 					<div className="text-center" textAlign="center">
 						{console.log("isActive")}
 						Desc

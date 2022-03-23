@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import "keen-slider/keen-slider.min.css"
 import { useKeenSlider } from "keen-slider/react.es" // import from 'keen-slider/react.es' for to get an ES module
+//keep this css file just for the icon next and previous to change them after
 import "./styles.css"
 import { FullBackgroundSlider } from "./fullBackgroundSlider"
 
@@ -35,6 +36,7 @@ export const Slider = () => {
 						/>
 
 						<Arrow
+							right
 							onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
 							disabled={
 								currentSlide === instanceRef.current.track.details.slides.length - 1
