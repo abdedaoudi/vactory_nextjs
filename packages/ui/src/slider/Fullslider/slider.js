@@ -11,8 +11,6 @@ export const Slider = (props) => {
 	const [sliderRef, instanceRef] = useKeenSlider({
 		initial: 0,
 		loop: true,
-		mode: "free-snap",
-		renderMode: "performance",
 		defaultAnimation: {
 			duration: 10000,
 		},
@@ -22,14 +20,13 @@ export const Slider = (props) => {
 		created() {
 			setLoaded(true)
 		},
-		rtl: true,
 	})
 
 	const ns = [1, 2, 3, 4]
 	return (
 		<>
 			<div
-				className="navigation-wrapper relative h-full w-full overflow-hidden
+				className="navigation-wrapper relative h-screen w-screen overflow-hidden
 "
 			>
 				<div ref={sliderRef} className="keen-slider relative w-full">
@@ -55,7 +52,7 @@ export const Slider = (props) => {
 					</>
 				)}
 				{loaded && instanceRef.current && (
-					<div className="dots flex justify-center py-2.5 bottom-10 w-full ">
+					<div className="dots flex absolute invisible sm:visible items-center justify-center py-2.5 bottom-10 right-1/2 left-1/2 ">
 						{[...Array(instanceRef.current.track.details.slides.length).keys()].map(
 							(idx) => {
 								return (
@@ -84,26 +81,24 @@ function Arrow(props) {
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow -translate-y-1/2 fill-white absolute bottom-1/2 items-center cursor-pointer${
+			className={`arrow sm:-translate-y-1/2 fill-white absolute sm:bottom-1/2 items-center sm:cursor-pointer bottom-10 right-6 ${
 				props.left
-					? "arrow--left left-20 border-2 border-white hover:bg-yellow-400  hover:border-transparent py-5 px-5 rounded-full"
-					: "arrow--right right-20 border-2 border-white hover:bg-yellow-400 hover:border-transparent py-5 px-5 rounded-full"
+					? "arrow--left sm:left-20 sm:border-2 sm:border-white hover:bg-yellow-400  hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-8 mr-11"
+					: "arrow--right sm:right-20 sm:border-2 sm:border-white hover:bg-yellow-400 hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-8 "
 			} ${disabeld}`}
 		>
-			<i className="icon-caret-left h-4 w-4 before:">
-				<svg
-					className="arrows relative top-0"
-					height="15"
-					viewBox="0 0 30 30"
-					width="15"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					{props.left && (
-						<path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-					)}
-					{props.right && <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />}
-				</svg>
-			</i>
+			<svg
+				className="arrows relative divide-x "
+				height="15"
+				viewBox="0 0 30 30"
+				width="15"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				{props.left && (
+					<path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+				)}
+				{props.right && <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />}
+			</svg>
 		</button>
 	)
 }
