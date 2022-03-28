@@ -10,15 +10,19 @@ export const ImageSlider = (props) => {
 	const [loaded, setLoaded] = useState(false)
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
+		centerMode: true,
 		breakpoints: {
-			"(min-width: 400px)": {
-				slides: { perView: 3, spacing: 5 },
+			"(min-width: 200px)": {
+				slides: { perView: 1 },
+			},
+			"(min-width: 600px)": {
+				slides: { perView: 2, spacing: 5 },
 			},
 			"(min-width: 1000px)": {
 				slides: { perView: 3, spacing: 12 },
 			},
 		},
-		slides: { perView: 1 },
+		slides: { perView: 3 },
 		renderMode: "performance",
 		defaultAnimation: {
 			duration: 5000,
@@ -31,17 +35,24 @@ export const ImageSlider = (props) => {
 		},
 	})
 
-	const ns = [1, 2, 3, 4]
+	const images = [
+		"https://images.unsplash.com/photo-1590004953392-5aba2e72269a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590004845575-cc18b13d1d0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590004987778-bece5c9adab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590005176489-db2e714711fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+	]
 	return (
 		<>
-			<div
-				className="navigation-wrapper relative h-96 w-screen overflow-hidden items-center
+			<div className="relative w-screen h-screen items-center justify-center">
+				<div
+					className="navigation-wrapper relative items-center justify-center h-full sm:px-48 overflow-hidden  
 "
-			>
-				<div ref={sliderRef} className="keen-slider flex h-full">
-					{ns.map((n) => {
-						return <FullImageSlider key={n} />
-					})}
+				>
+					<div ref={sliderRef} className="keen-slider relative h-full">
+						{images.map((n, index) => {
+							return <FullImageSlider key={index} image={n} />
+						})}
+					</div>
 				</div>
 				{loaded && instanceRef.current && (
 					<>
@@ -90,10 +101,8 @@ function Arrow(props) {
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow sm:-translate-y-1/2 invisible sm:visible fill-white absolute sm:bottom-1/2 items-center sm:cursor-pointer bottom-10 right-6 ${
-				props.left
-					? "arrow--left sm:left-20 sm:border-2 sm:border-white hover:bg-yellow-400  hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-8 mr-11"
-					: "arrow--right sm:right-20 sm:border-2 sm:border-white hover:bg-yellow-400 hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-8 "
+			className={`arrow sm:-translate-y-1/2 sm:visible invisible items-center justify-center fill-white absolute sm:bottom-1/2  sm:cursor-pointer bottom-10 right-6 sm:border-2 sm:border-white hover:bg-yellow-400  hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-12 ${
+				props.left ? "arrow--left sm:left-20 mr-11" : "arrow--right sm:right-20  "
 			} ${disabeld}`}
 		>
 			<svg

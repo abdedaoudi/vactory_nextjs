@@ -5,10 +5,12 @@ import { Link } from "@vactory/ui/link"
 
 export const FullBackgroundSlider = ({
 	title,
+	image,
 	description,
 	link,
 	link_label,
 	isActive,
+	opacity,
 }) => {
 	/*const title = props.title
 	const description = props.description
@@ -17,7 +19,10 @@ export const FullBackgroundSlider = ({
 	const link_label = props.link_label */
 	//const isActive = props.isActive
 	return (
-		<div className="keen-slider__slide number-slide flex sm:bg-cover number-slide bg-gray-600 relative items-center justify-center text-5xl text-white font-medium h-screen  max-h-screen">
+		<div
+			className="fader__slide  sm:bg-cover absolute items-center justify-center text-5xl text-white w-full h-full top-0"
+			style={{ opacity: `${opacity}`, backgroundImage: `url(${image})` }}
+		>
 			{" "}
 			{/* Add Background style={{ backgroundImage: `url(${image})` }} */}
 			{isActive && (

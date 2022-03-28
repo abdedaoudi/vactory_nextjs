@@ -3,17 +3,19 @@ import React from "react"
 import { Link } from "@vactory/ui/link"
 //import { Wysiwyg } from "@vactory/next/wysiwyg"
 
-export const FullImageSlider = ({ profession, link }) => {
-	/*const title = props.title
-	const description = props.description
-	const image = props.image
+export const FullImageSlider = ({ profession, link, image }) => {
+	/*const profrssion = props.profession
 	const link = props.link
-	const link_label = props.link_label */
+	const image = props.image */
 	//const isActive = props.isActive
 	return (
-		<div className="keen-slider__slide number-slide relative number-slide h-full  bg-gray-600  items-center justify-center text-5xl text-white font-medium  rounded-xl">
+		<div
+			className="keen-slider__slide number-slide relative max-h-10 flex-col items-center justify-center text-5xl text-white font-medium rounded-xl sm:px-10 "
+			style={{ backgroundImage: `url(${image})` }}
+		>
 			{/* Add Background style={{ backgroundImage: `url(${image})` }} */}
-			<div className="flex h-full flex-col justify-center items-center">
+
+			<div className="flex h-full flex-col justify-center items-cente sm:ease-in-out sm:delay-150 sm:hover:-translate-y-1 sm:hover:scale-110">
 				<div className="text-center bottom-0 " textAlign="center">
 					{console.log("isActive")}
 					{/*Link && Link_label && */}
