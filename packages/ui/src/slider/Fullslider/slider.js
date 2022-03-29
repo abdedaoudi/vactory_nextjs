@@ -19,7 +19,7 @@ export const Slider = (props) => {
 		slides: images.length,
 		loop: true,
 		defaultAnimation: {
-			duration: 5000,
+			duration: 4000,
 		},
 		slideChanged(slider) {
 			setCurrentSlide(slider.track.details.rel)
@@ -34,8 +34,8 @@ export const Slider = (props) => {
 	})
 	return (
 		<>
-			<div className="navigation-wrapper relative h-screen w-screen overflow-hidden">
-				<div ref={sliderRef} className="fader relative h-full">
+			<div className="navigation-wrapper relative h-screen w-screen overflow-hidden ">
+				<div ref={sliderRef} className="fader relative h-4/5 sm:h-full ">
 					{images.map((src, index) => {
 						return (
 							<FullBackgroundSlider
@@ -43,73 +43,81 @@ export const Slider = (props) => {
 								image={src}
 								isActive={currentSlide === index}
 								opacity={opacities[index]}
+								index
 							/>
 						)
 					})}
-				</div>
-				{loaded && instanceRef.current && (
-					<>
-						<Arrow
-							left
-							onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
-							disabled={currentSlide === 0}
-						/>
+					{loaded && instanceRef.current && (
+						<>
+							<Arrow
+								left
+								onClick={(e) => {
+									e.stopPropagation() || instanceRef.current?.prev()
+								}}
+							/>
 
-						<Arrow
-							right
-							onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
-							disabled={
-								currentSlide === instanceRef.current.track.details.slides.length - 1
-							}
-						/>
-					</>
-				)}
-				{loaded && instanceRef.current && (
-					<div className="dots flex absolute invisible sm:visible items-center justify-center py-2.5 bottom-10 right-1/2 left-1/2 ">
-						{[...Array(instanceRef.current.track.details.slides.length).keys()].map(
-							(index) => {
-								return (
-									<button
-										key={index}
-										onClick={() => {
-											instanceRef.current?.moveToIdx(index)
-										}}
-										className={
-											"dot w-2 h-2 bg-gray-400 p-1 cursor-pointer border-current rounded-full my-0 mx-1.5 outline-none" +
-											(currentSlide === index ? " active bg-white p-2" : "")
-										}
-									></button>
-								)
-							}
-						)}
-					</div>
-				)}
+							<Arrow
+								right
+								onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
+							/>
+						</>
+					)}
+					{loaded && instanceRef.current && (
+						<div className="dots flex absolute invisible sm:visible items-center justify-center py-2.5 bottom-10 right-1/2 left-1/2 ">
+							{[...Array(instanceRef.current.track.details.slides.length).keys()].map(
+								(index) => {
+									return (
+										<button
+											key={index}
+											onClick={() => {
+												instanceRef.current?.moveToIdx(index)
+											}}
+											className={
+												"dot w-2 h-2 bg-gray-200 p-1 cursor-pointer border-current rounded-full my-0 mx-1.5 outline-none" +
+												(currentSlide === index
+													? " active sm:bg-white p-2 sm:transition sm:ring-2 sm:ring-slate-50 sm:ease-in-out sm:delay-100 "
+													: "")
+											}
+										></button>
+									)
+								}
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 		</>
 	)
 }
 
 function Arrow(props) {
-	const disabeld = props.disabled ? " arrow--disabled" : ""
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow sm:-translate-y-1/2 items-center justify-center fill-white absolute sm:bottom-1/2  sm:cursor-pointer bottom-10 right-6 sm:border-2 sm:border-white hover:bg-yellow-400  hover:border-transparent sm:py-5 sm:px-5 sm:rounded-full w-12 h-12 ${
-				props.left ? "arrow--left sm:left-20 mr-11" : "arrow--right sm:right-20  "
-			} ${disabeld}`}
+			className={`arrow sm:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute sm:bottom-1/2  sm:cursor-pointer  right-6 sm:border sm:border-white focus:sm:border-0 focus:bg focus:bg-yellow-400 hover:bg-white sm:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12 ${
+				props.left
+					? "arrow--left sm:left-20 mr-12 bg-white sm:bg-transparent"
+					: "arrow--right  sm:right-20  "
+			}`}
 		>
-			<svg
-				className="arrows relative "
-				height="10"
-				width="10"
-				viewBox="0 0 30 30"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				{props.left && (
-					<path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-				)}
-				{props.right && <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />}
-			</svg>
+			<i className="relative transition ease-in-out delay-200 hover:-translate-x-1 hover:scale-110">
+				<svg
+					className="sm:fill-white fill-black"
+					viewBox="0 0 30 30"
+					xmlns="http://www.w3.org/2000/svg"
+					height="15"
+					width="15"
+				>
+					{props.left && (
+						<path d="M13,26a1,1,0,0,1-.71-.29l-9-9a1,1,0,0,1,0-1.42l9-9a1,1,0,1,1,1.42,1.42L5.41,16l8.3,8.29a1,1,0,0,1,0,1.42A1,1,0,0,1,13,26Z" />
+					)}
+					{props.right && (
+						<path d="M19,26a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42L26.59,16l-8.3-8.29a1,1,0,0,1,1.42-1.42l9,9a1,1,0,0,1,0,1.42l-9,9A1,1,0,0,1,19,26Z" />
+					)}
+
+					<path d="M28,17H4a1,1,0,0,1,0-2H28a1,1,0,0,1,0,2Z" />
+				</svg>
+			</i>
 		</button>
 	)
 }
