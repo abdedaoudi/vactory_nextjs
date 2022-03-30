@@ -11,7 +11,7 @@ const images = [
 	"https://images.unsplash.com/photo-1590005176489-db2e714711fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
 ]
 
-export const Slider = (props) => {
+export const Slider = (items) => {
 	const [opacities, setOpacities] = React.useState([])
 	const [currentSlide, setCurrentSlide] = useState(0)
 	const [loaded, setLoaded] = useState(false)
@@ -36,11 +36,12 @@ export const Slider = (props) => {
 		<>
 			<div className="navigation-wrapper relative h-screen w-screen overflow-hidden ">
 				<div ref={sliderRef} className="fader relative h-4/5 sm:h-full ">
+					{/*add your items in images*/}
 					{images.map((src, index) => {
 						return (
 							<FullBackgroundSlider
 								key={index}
-								image={src}
+								item={src}
 								isActive={currentSlide === index}
 								opacity={opacities[index]}
 								index
@@ -100,7 +101,7 @@ function Arrow(props) {
 					: "arrow--right  sm:right-20  "
 			}`}
 		>
-			<i className="relative transition ease-in-out delay-200 hover:-translate-x-1 hover:scale-110">
+			<i className="relative transition hover:-translate-x-1 hover:scale-110 ">
 				<svg
 					className="sm:fill-white fill-black"
 					viewBox="0 0 30 30"

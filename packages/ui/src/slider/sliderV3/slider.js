@@ -3,63 +3,66 @@ import "keen-slider/keen-slider.min.css"
 import { useKeenSlider } from "keen-slider/react.es" // import from 'keen-slider/react.es' for to get an ES module
 //keep this css file just for the icon next and previous to change them after
 //import "./styles.css"
-import { FullImageSlider } from "./fullImageSlider"
+import { FullImageSlider } from "./fullSlider"
 
-const images = [
-	"https://images.unsplash.com/photo-1590004953392-5aba2e72269a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
-	"https://images.unsplash.com/photo-1590004845575-cc18b13d1d0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
-	"https://images.unsplash.com/photo-1590004987778-bece5c9adab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
-	"https://images.unsplash.com/photo-1590005176489-db2e714711fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
-]
-export const ImageSlider = (items) => {
+export const SliderV3 = (items) => {
 	const [currentSlide, setCurrentSlide] = useState(0)
 	const [loaded, setLoaded] = useState(false)
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
 		breakpoints: {
-			"(min-width: 200px)": {
-				slides: { perView: 2.5, spacing: 25, origin: "center" },
+			"(min-width: 100px)": {
+				slides: { perView: 1 },
 			},
 			"(min-width: 768px)": {
-				slides: { perView: 2, spacing: 25 },
-			},
-			"(min-width: 900px)": {
 				slides: { perView: 3, spacing: 25, origin: "center" },
 			},
 		},
 		defaultAnimation: {
-			duration: 2000,
+			duration: 1500,
 		},
-		slideChanged(Slider) {
-			setCurrentSlide(Slider.track.details.rel)
+		slideChanged(slider) {
+			setCurrentSlide(slider.track.details.rel)
 		},
 		created() {
 			setLoaded(true)
 		},
 	})
 
+	const images = [
+		"https://images.unsplash.com/photo-1590004953392-5aba2e72269a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590004845575-cc18b13d1d0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590004987778-bece5c9adab6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+		"https://images.unsplash.com/photo-1590005176489-db2e714711fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80",
+	]
 	return (
 		<>
-			<div className="relative w-screen h-96  items-center justify-center">
+			<div className="relative w-screen h-72  items-center justify-center ">
 				<div
-					className="navigation-wrapper relative  justify-center  h-4/5 sm:h-full md:h-4/5 lg:h-full w=full sm:top-0  sm:px-20 md:px-48 overflow-hidden  
+					className="navigation-wrapper relative  justify-center h-4/5 sm:h-full w=full md:px-20 lg:px-48 overflow-hidden  
 "
 				>
-					<div ref={sliderRef} className="keen-slider relative w=full h-full">
+					<div ref={sliderRef} className="keen-slider relative w=full h-full ">
 						{images.map((n, index) => {
 							return (
 								<FullImageSlider key={index} item={n} isActive={currentSlide === index} />
 							)
 						})}
 					</div>
-					{loaded && instanceRef.current && (
-						<>
-							<Arrow left onClick={(e) => instanceRef.current?.prev()} />
-
-							<Arrow right onClick={(e) => instanceRef.current?.next()} />
-						</>
-					)}
 				</div>
+				{loaded && instanceRef.current && (
+					<>
+						<Arrow
+							left
+							onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
+						/>
+
+						<Arrow
+							right
+							onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
+						/>
+					</>
+				)}
 				{loaded && instanceRef.current && (
 					<div className="dots flex items-center justify-center py-2.5 -bottom-10 right-1/2 left-1/2 ">
 						{[...Array(instanceRef.current.track.details.slides.length).keys()].map(
@@ -91,15 +94,15 @@ function Arrow(props) {
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow invisible md:visible sm:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute sm:bottom-1/2  sm:cursor-pointer  right-6 sm:border sm:border-black focus:sm:border-0 focus:bg focus:bg-yellow-400 hover:bg-white sm:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
+			className={`arrow group invisible md:visible md:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute md:bottom-1/2  md:cursor-pointer  right-6 md:border md:border-black focus:md:border-0 focus:bg focus:bg-yellow-400 hover:bg-white md:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
 				props.left
-					? "arrow--left sm:left-0 md:left-32"
-					: "arrow--right sm:right-0 md:right-32"
+					? "arrow--left md:left-0 lg:left-32 "
+					: "arrow--right md:right-0 lg:right-32"
 			} `}
 		>
-			<i className="relative transition ease-in-out delay-200 hover:-translate-x-1 hover:scale-110">
+			<i className="relative transition ease-in-out delay-200 ">
 				<svg
-					className="sm:fill-white fill-black"
+					className="md:fill-white fill-black "
 					viewBox="0 0 30 30"
 					xmlns="http://www.w3.org/2000/svg"
 					height="15"
