@@ -94,15 +94,15 @@ function Arrow(props) {
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow group invisible md:visible md:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute md:bottom-1/2  md:cursor-pointer  right-6 md:border md:border-black focus:md:border-0 focus:bg focus:bg-yellow-400 hover:bg-white md:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
+			className={`arrow group invisible md:visible md:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute md:bottom-1/2  md:cursor-pointer  md:border md:border-black focus:md:border-0 focus:bg focus:bg-yellow-400 hover:bg-white md:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
 				props.left
-					? "arrow--left md:left-0 lg:left-32 "
-					: "arrow--right md:right-0 lg:right-32"
+					? "arrow--left ltr:md:left-0 ltr:lg:left-32 rtl:lg:right-32 rtl:md:right-0"
+					: "arrow--right ltr:md:right-0 ltr:lg:right-32 rtl:lg:left-32 rtl:md:left-0"
 			} `}
 		>
 			<i className="relative transition ease-in-out delay-200 ">
 				<svg
-					className="md:fill-white fill-black "
+					className="md:fill-white fill-black rtl:transform rtl:rotate-180 "
 					viewBox="0 0 30 30"
 					xmlns="http://www.w3.org/2000/svg"
 					height="15"

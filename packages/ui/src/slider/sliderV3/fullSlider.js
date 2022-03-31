@@ -24,7 +24,7 @@ export const FullImageSlider = ({ item, isActive }) => {
 								src={
 									"https://images.unsplash.com/photo-1590004953392-5aba2e72269a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=500&w=800&q=80"
 								}
-								className="relative text-white left-2 w-14 h-14 group-hover:scale-125"
+								className="relative text-white ltr:left-3 rtl:right-3 w-14 h-14 group-hover:scale-125"
 							/>
 						}
 						{

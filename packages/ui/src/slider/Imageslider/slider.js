@@ -16,12 +16,13 @@ export const ImageSlider = (items) => {
 	const [loaded, setLoaded] = useState(false)
 	const [sliderRef, instanceRef] = useKeenSlider({
 		loop: true,
+		rtl: true,
 		breakpoints: {
 			"(min-width: 200px)": {
 				slides: { perView: 2.5, spacing: 25, origin: "center" },
 			},
 			"(min-width: 768px)": {
-				slides: { perView: 2, spacing: 25 },
+				slides: { perView: 2, spacing: 25, origin: "center" },
 			},
 			"(min-width: 900px)": {
 				slides: { perView: 3, spacing: 25, origin: "center" },
@@ -91,15 +92,15 @@ function Arrow(props) {
 	return (
 		<button
 			onClick={props.onClick}
-			className={`arrow invisible md:visible sm:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute sm:bottom-1/2  sm:cursor-pointer  right-6 sm:border sm:border-black focus:sm:border-0 focus:bg focus:bg-yellow-400 hover:bg-white sm:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
+			className={`arrow invisible md:visible sm:translate-y-1/2 items-center justify-center bottom-10 fill-white absolute sm:bottom-1/2  sm:cursor-pointer  sm:border sm:border-black focus:sm:border-0 focus:bg focus:bg-yellow-400 hover:bg-white sm:hover:bg-yellow-400  hover:border-transparent py-4 px-4 sm:rounded-full  sm:transition sm:ease-in-out sm:delay-200 sm:hover:-translate-x-1 sm:hover:scale-110 w-12 h-12  ${
 				props.left
-					? "arrow--left sm:left-0 md:left-32"
-					: "arrow--right sm:right-0 md:right-32"
+					? "arrow--left ltr:md:left-32 rtl:right-32"
+					: "arrow--right ltr:md:right-32 rtl:left-32"
 			} `}
 		>
 			<i className="relative transition ease-in-out delay-200 hover:-translate-x-1 hover:scale-110">
 				<svg
-					className="sm:fill-white fill-black"
+					className="sm:fill-white fill-black rtl:transform rtl:rotate-180"
 					viewBox="0 0 30 30"
 					xmlns="http://www.w3.org/2000/svg"
 					height="15"
